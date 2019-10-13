@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/template.xhtml">
+
+	<h:form>
+		<p:messages id="messages" showDetail="true" closable="true">
+			<p:autoUpdate />
+		</p:messages>
+		<p:toolbar>
+			<p:toolbarGroup>
+				<p:commandButton value="Adicionar"
+					action="#{pedidoBean.adicionar()}" update="@form"></p:commandButton>
+				<p:commandButton value="Listar" action="#{pedidoBean.listar()}"
+					update="@form"></p:commandButton>
+			</p:toolbarGroup>
+		</p:toolbar>
+		<p:fieldset legend="Pedidos">
+			<p:panelGrid columns="2">
+				<h:outputLabel value="Nome"></h:outputLabel>
+				<p:inputText value="#{pedidoBean.pedido.nome}"></p:inputText>
+				<h:outputLabel value="Quantidade"></h:outputLabel>
+				<p:inputText value="#{pedidoBean.pedido.quantidade}"></p:inputText>
+			</p:panelGrid>
+			<p:dataTable value="#{pedidoBean.pedidos}" var="pedido">
+				<p:column headerText="Nome do Pedido" sortBy="#{pedido.nome}">
+					<h:outputText value="#{pedido.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Quantidade" sortBy="#{pedido.quantidade}">
+					<h:outputText value="#{pedido.quantidade}"></h:outputText>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Editar"
+						action="#{pedidoBean.editar(pedido)}" update="@form"></p:commandButton>
+				</p:column>
+				<p:column>
+					<p:commandButton value="Deletar"
+						action="#{pedidoBean.deletar(pedido)}" update="@form"></p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</p:fieldset>
+	</h:form>
+</ui:decorate>
